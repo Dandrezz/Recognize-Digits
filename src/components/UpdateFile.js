@@ -65,7 +65,7 @@ const UpdateFile = () => {
         if (localStorage['tensorflowjs_models/RecogDigModel/info']) {
             modelCNN = await tf.loadLayersModel('localstorage://RecogDigModel');
         }else{
-            modelCNN = await tf.loadLayersModel('https://raw.githubusercontent.com/Dandrezz/Recognize-Digits/main/public/models/model.json');
+            modelCNN = await tf.loadLayersModel('https://raw.githubusercontent.com/Dandrezz/Recognize-Digits/main/models/model.json');
             await modelCNN.save('localstorage://RecogDigModel');
         }
 
