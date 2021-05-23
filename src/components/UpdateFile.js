@@ -45,9 +45,10 @@ const options = {
 
 const UpdateFile = () => {
 
-    const [imagen, setImagen] = useState("")
-    const [prediccion, setPrediccion] = useState("")
-    const [data, setData] = useState(initState)
+    const [imagen, setImagen] = useState("");
+    const [prediccion, setPrediccion] = useState("");
+    const [data, setData] = useState(initState);
+    let modelCNN;
 
     useEffect(() => {
         setImagen(number)
@@ -59,9 +60,18 @@ const UpdateFile = () => {
         setPrediccion("");
     }
 
-    const loadModelCNN = async () => {
-        console.log("Init")
-        const model = await tf.loadLayersModel("./models/model.json");
+    const loadModelCNN = async() => {
+
+        if (localStorage['tensorflowjs_models/RecogDigModel/info']) {
+            modelCNN = await tf.loadLayersModel('localstorage://RecogDigModel');
+        }else{
+            modelCNN = await tf.loadLayersModel('https://raw.githubusercontent.com/Dandrezz/Recognize-Digits/main/public/models/model.json');
+            await modelCNN.save('localstorage://RecogDigModel');
+        }
+
+    }
+
+    const doPretictionCNN = async () => {
         console.log('Successfully loaded model');
         let img = tf.browser.fromPixels(document.getElementById("imagen"), 1).toFloat();
         img = tf.image.resizeBilinear(img, [28, 28]);
@@ -71,7 +81,7 @@ const UpdateFile = () => {
             const oneImg = tf.onesLike(img);
             img = tf.sub(oneImg, img);
         }
-        const prediction = model.predict(img).dataSync();
+        const prediction = modelCNN.predict(img).dataSync();
         const ValorMasAlto = Math.max(...prediction);
         const numero = prediction.indexOf(ValorMasAlto);
         setPrediccion(numero);
@@ -103,6 +113,15 @@ const UpdateFile = () => {
         })
     }
 
+    const handleButtonPredict = async()=>{
+        if(modelCNN!==undefined){
+            await doPretictionCNN()
+        }else{
+            await loadModelCNN()
+            await doPretictionCNN()
+        }
+    }
+
     return (
         <div>
             <div className="same-line mt-3">
@@ -131,7 +150,7 @@ const UpdateFile = () => {
                     <div className="invalid-feedback">Example invalid custom file feedback</div>
                 </div>
             </div>
-            <button onClick={loadModelCNN} type="button" className="mt-3 btn btn-primary">
+            <button onClick={handleButtonPredict} type="button" className="mt-3 btn btn-primary">
                 Predecir
             </button>
             <h2
@@ -139,6 +158,7 @@ const UpdateFile = () => {
             >
                 {prediccion}
             </h2>
+          
         </div>
     )
 }
