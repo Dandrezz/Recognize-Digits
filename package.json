@@ -1,42 +1,24 @@
 {
   "name": "digits-app",
-  "version": "0.1.0",
   "private": true,
-  "dependencies": {
-    "@tensorflow/tfjs": "^3.6.0",
-    "@testing-library/jest-dom": "^5.12.0",
-    "@testing-library/react": "^11.2.7",
-    "@testing-library/user-event": "^12.8.3",
-    "bootstrap": "^5.0.1",
-    "chart.js": "^3.2.1",
-    "react": "^17.0.2",
-    "react-chartjs-2": "^3.0.3",
-    "react-dom": "^17.0.2",
-    "react-scripts": "4.0.3",
-    "web-vitals": "^1.1.2"
-  },
+  "version": "0.0.0",
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
   },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
+  "dependencies": {
+    "@tensorflow/tfjs": "^3.18.0",
+    "bootstrap": "^5.1.3",
+    "chart.js": "^3.7.1",
+    "react": "^18.0.0",
+    "react-chartjs-2": "^4.1.0",
+    "react-dom": "^18.0.0"
   },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
+  "devDependencies": {
+    "@types/react": "^18.0.0",
+    "@types/react-dom": "^18.0.0",
+    "@vitejs/plugin-react": "^1.3.0",
+    "vite": "^2.9.9"
   }
 }
