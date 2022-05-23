@@ -115,6 +115,9 @@ const UpdateFile = () => {
 
     return (
         <div>
+            <div>
+                <button>Imagen</button>&nbsp;<button>Dibujo</button>
+            </div>
             <div className="same-line mt-3">
                 <div className="row">
                     <div className="col">
